@@ -17,14 +17,10 @@ import lombok.Setter;
 @Setter
 public class Language {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	private String code;  // Código ISO da língua, como "en", "es", etc.
     @Column(nullable = false, unique = true)
-    private String name;  // Nome da língua, como "Inglês", "Espanhol", etc.
-    @Column(nullable = false)
-    private String code;  // Código ISO da língua, como "en", "es", etc.
-    // This relationship is the inverse side of the @ManyToOne in UserProfile
+    private String name; 
     @OneToMany(mappedBy = "nativeLanguage")  // Marks the inverse side of the Many-to-One relationship
     private Set<UserProfile> usersWithNativeLanguage;  // Users who have this language as their native language
     // This relationship is the inverse side of the @ManyToMany in UserProfile

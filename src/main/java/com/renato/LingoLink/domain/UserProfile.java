@@ -1,7 +1,9 @@
 package com.renato.LingoLink.domain;
 
+import java.time.LocalDate;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,22 +29,17 @@ public class UserProfile {
 	private String firstName;
 	@Column(nullable = false)
 	private String lastName;
-	@Column(nullable = false, unique = true)
-	private String email;
-	private String phoneNumber;
-	private String preferredLanguage;
 	@Column(length = 500)
-	private String bio; // A short bio or description about the user
-	private String profilePictureUrl; // URL to the user's profile picture
+	private String bio;
+	private String profilePictureUrl;
 	private String location; // The user's location (could be city, country, etc.)
-	private String dateOfBirth; // Date of birth, consider using LocalDate in a real-world scenario
+	private LocalDate dateOfBirth;
 	@ManyToOne
-    @JoinColumn(name = "native_language_id", nullable = false)
-    private Language nativeLanguage;  // Língua nativa do usuário
-    @ManyToMany
-    @JoinTable(
-        name = "user_learning_languages", 
-        joinColumns = @JoinColumn(name = "user_profile_id"), 
-        inverseJoinColumns = @JoinColumn(name = "language_id"))
-    private Set<Language> learningLanguages; 
+	@JoinColumn(name = "native_language_id")
+	private Language nativeLanguage;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_learning_languages", 
+		joinColumns = @JoinColumn(name = "user_profile_id"), 
+		inverseJoinColumns = @JoinColumn(name = "language_id"))
+	private Set<Language> learningLanguages;
 }
