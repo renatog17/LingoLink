@@ -1,15 +1,15 @@
-package com.renato.LingoLink.controller;
+package com.renato.LingoLink.controller.dto;
 
 import java.time.LocalDate;
 import java.util.Set;
 
-import com.renato.LingoLink.domain.Language;
+import jakarta.validation.constraints.NotEmpty;
 
 public record PostUserDTO(
-	    String firstName,
+		@NotEmpty(message = "first name can't be null")
+		String firstName,
+		@NotEmpty(message = "last name can't be null")
 	    String lastName,
-	    String email,
-	    String phoneNumber,
 	    String bio,
 	    String profilePictureUrl,
 	    String location,

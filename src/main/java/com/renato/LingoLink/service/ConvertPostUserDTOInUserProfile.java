@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.renato.LingoLink.controller.PostUserDTO;
+import com.renato.LingoLink.controller.dto.PostUserDTO;
 import com.renato.LingoLink.domain.Language;
 import com.renato.LingoLink.domain.UserProfile;
 import com.renato.LingoLink.repository.LanguageRepository;

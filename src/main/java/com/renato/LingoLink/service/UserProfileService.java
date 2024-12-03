@@ -3,7 +3,7 @@ package com.renato.LingoLink.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.renato.LingoLink.controller.PostUserDTO;
+import com.renato.LingoLink.controller.dto.PostUserDTO;
 import com.renato.LingoLink.domain.UserProfile;
 import com.renato.LingoLink.repository.UserProfileRepository;
 
@@ -17,10 +17,10 @@ public class UserProfileService {
 	@Autowired
 	private ConvertPostUserDTOInUserProfile convertPostUserDTOInUserProfile;
 	
-	public void createNewUserProfile(@Valid PostUserDTO postUserDTO) {
+	public UserProfile createNewUserProfile(@Valid PostUserDTO postUserDTO) {
 		UserProfile userProfile = new UserProfile();
 		convertPostUserDTOInUserProfile.convertPostUserDTOInUserProfile(userProfile, postUserDTO);
 		
-		userProfileRepository.save(userProfile);		
+		return userProfileRepository.save(userProfile);		
 	}
 }
