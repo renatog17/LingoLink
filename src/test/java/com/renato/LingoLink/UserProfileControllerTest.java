@@ -3,6 +3,7 @@ package com.renato.LingoLink;
 import java.time.LocalDate;
 import java.util.Set;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,6 +34,7 @@ public class UserProfileControllerTest {
 	private ObjectMapper objectMapper;
 	
 	@Test
+	@DisplayName("should return sucess")
 	public void postUserProfile_Success() throws JsonProcessingException, Exception {
 		//arrange
 		PostUserDTO postUserDTO = PostUserDTO.builder()
@@ -50,4 +52,22 @@ public class UserProfileControllerTest {
 				.content(objectMapper.writeValueAsString(postUserDTO)))
 				.andExpect(MockMvcResultMatchers.status().isCreated());
 	}
+	
+	@Test
+	@DisplayName("should return validation errors")
+	public void postUserProfile_ValidationsErrors() throws JsonProcessingException, Exception {
+		//arrange
+		PostUserDTO postUserDTO = PostUserDTO.builder()
+				.firstName(null)
+				.lastName(null)
+				.build();
+		//act && assert
+		mockMvc.perform(MockMvcRequestBuilders.post("/user").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(postUserDTO)))
+				.andExpect(MockMvcResultMatchers.status().isBadRequest())
+				.andExpect(MockMvcResultMatchers.jsonPath("$[?(@.campo == 'firstName')].mensagem").value("first name can't be null"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$[?(@.campo == 'lastName')].mensagem").value("last name can't be null"));
+	}
+	//validation erros
+	//
 }

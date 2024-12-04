@@ -3,9 +3,6 @@ package com.renato.LingoLink.controller.dto;
 import java.time.LocalDate;
 import java.util.Set;
 
-import com.renato.LingoLink.domain.Language;
-import com.renato.LingoLink.domain.UserProfile;
-
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 
